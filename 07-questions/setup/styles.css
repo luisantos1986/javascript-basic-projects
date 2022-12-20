@@ -212,7 +212,7 @@ Questions
   letter-spacing: var(--spacing);
   color: var(--clr-grey-1);
 }
-.question-btn {
+.questions-btn {
   font-size: 1.5rem;
   background: transparent;
   border-color: transparent;
@@ -220,7 +220,7 @@ Questions
   color: var(--clr-gold);
   transition: var(--transition);
 }
-.question-btn:hover {
+.questions-btn:hover {
   transform: rotate(90deg);
 }
 .question-text {
@@ -230,8 +230,7 @@ Questions
 .question-text p {
   margin-bottom: 0;
 }
-/* hide text */
-/* .question-text {
+.question-text {
   display: none;
 }
 .show-text .question-text {
@@ -245,4 +244,4 @@ Questions
 }
 .show-text .plus-icon {
   display: none;
-} */
+}
