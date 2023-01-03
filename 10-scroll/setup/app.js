@@ -7,6 +7,16 @@
 //offsetTop - A Number, representing the top position of the element, 
 // in pixels
 
+const EVENTS = {
+    CLICK: 'click',
+    SCROLL: 'scroll'
+}
+
+const CLASS = {
+    FIXED_NAV: 'fixed-nav',
+    SHOW_LINK: 'show-link'
+}
+
 // ********** set date ************
 const date = document.getElementById('date')
 date.innerHTML = new Date().getFullYear()
@@ -16,7 +26,7 @@ const navToggle = document.querySelector('.nav-toggle');
 const linksContainer = document.querySelector('.links-container');
 const links = document.querySelector('.links');
 
-navToggle.addEventListener('click', function() {
+navToggle.addEventListener(EVENTS.CLICK, function() {
     const containerHeight = linksContainer.getBoundingClientRect().height;
     const linksHeight = links.getBoundingClientRect().height;
 
@@ -30,19 +40,20 @@ navToggle.addEventListener('click', function() {
 const navbar = document.getElementById("nav");
 const topLink = document.querySelector(".top-link");
 
-window.addEventListener('scroll', function() {
+window.addEventListener(EVENTS.SCROLL, function() {
     const scrollHeight = window.pageYOffset;
     const navHeight = navbar.getBoundingClientRect().height;
+    const  {FIXED_NAV, SHOW_LINK } = CLASS 
     if (scrollHeight > navHeight) {
-        navbar.classList.add("fixed-nav");
+        navbar.classList.add(FIXED_NAV);
     } else {
-        navbar.classList.remove("fixed-nav")
+        navbar.classList.remove(FIXED_NAV)
     }
 
     if (scrollHeight > 500) {
-        topLink.classList.add("show-link");
+        topLink.classList.add(SHOW_LINK);
     } else {
-        topLink.classList.remove("show-link")
+        topLink.classList.remove(SHOW_LINK)
     }
 
 });
@@ -52,7 +63,7 @@ window.addEventListener('scroll', function() {
 const scrollLinks = document.querySelectorAll(".scroll-link");
 scrollLinks.forEach(function(link) {
 
-    link.addEventListener("click", function(e) {
+    link.addEventListener(EVENTS.CLICK, function(e) {
         //prevent default
         e.preventDefault();
         //navigate to specific spot 
@@ -61,7 +72,7 @@ scrollLinks.forEach(function(link) {
         // calculate the heights
         const navHeight = navbar.getBoundingClientRect().height;
         const containerHeight = linksContainer.getBoundingClientRect().height
-        const fixedNav = navbar.classList.contains("fixed-nav");    
+        const fixedNav = navbar.classList.contains(CLASS.FIXED_NAV);    
         let position = element.offsetTop - navHeight
     
         if(!fixedNav){
