@@ -85,19 +85,20 @@ const menu = [
 const sectionCenter = document.querySelector('.section-center');
 const container = document.querySelector('.btn-container')
 
+const EVENT = {
+  DOM: 'DOMContentLoaded',
+  CLICK: 'click'
+}
 
 //load items
-window.addEventListener('DOMContentLoaded', function()  {
+window.addEventListener(EVENT.DOM, function() {
     displayMenuItems(menu);
-    displayMenuButtons()
-  
+    displayMenuButtons()  
 });
 
 // filter items
-
-
-function displayMenuItems (menuItems) {
-  let displayMenu = menuItems.map (function (item) {
+function displayMenuItems(menuItems) {
+  let displayMenu = menuItems.map (function(item) {
     return `<article class="menu-item">
     <img src=${item.img} class="photo" alt="${item.title}">
       <div class="item-info">
@@ -115,44 +116,35 @@ function displayMenuItems (menuItems) {
   sectionCenter.innerHTML = displayMenu;
 }
 
+function displayMenuButtons() {
+     const categories = menu.reduce(function(values, item) {
+         if(!values.includes(item.category)) {
+             values.push(item.category);
+         }
+         return values
+    }, ["all"]);
+    const categoryBtns = categories.map(function(category) {
+        return `<button class="filter-btn" type="button" 
+                data-id="${category}">${category}</button>`
+    }).join("")
+    container.innerHTML = categoryBtns;
+    const filterBtn = document.querySelectorAll('.filter-btn')
 
-
-function displayMenuButtons(){
-  const categories = menu.reduce(function(values,item){
-    if(!values.includes(item.category)) {
-         values.push(item.category);
-     }
-     return values
-}, ["all"]);
-const categoryBtns = categories.map(function(category){
-  return `<button class="filter-btn" type="button" 
-  data-id="${category}">${category}</button>`
-})
-.join("")
-container.innerHTML = categoryBtns;
-const filterBtn = document.querySelectorAll('.filter-btn')
-
-filterBtn.forEach(function(btn) {
-  btn.addEventListener("click", function (e) {
-    const category = e.currentTarget.dataset.id;
-    console.log(category)
-    const menuCategory = menu.filter (function (menuItem) {
-    if (menuItem.category === category) {
-      return menuItem;
-     }
+    filterBtn.forEach(function(btn) {
+        btn.addEventListener(EVENT.CLICK, function(e) {
+            const category = e.currentTarget.dataset.id;
+            console.log(category)
+            const menuCategory = menu.filter(function(menuItem) {
+            if (menuItem.category === category) {
+               return menuItem;
+          }
+          });
+          if(category === 'all') {
+              displayMenuItems(menu);
+          } else {
+            displayMenuItems(menuCategory);
+          }
+        });
     });
-    if(category === 'all') {
-      displayMenuItems(menu);
-    } else {
-      displayMenuItems(menuCategory);
-    }
-  });
-});
 
 }
-
-/*});
- 
- console.log(displayMenu)
- 
-}); */
