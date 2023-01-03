@@ -59,29 +59,30 @@ function getRemainingTime() {
     const oneMinute = 60 * 1000;
 
 //calculate values 
-let days = t/oneDay
-days = Math.floor(days)
-let hours = Math.floor((t % oneDay) / oneHour);
-let minutes = Math.floor((t % oneHour) / oneMinute);
-let seconds = Math.floor((t % oneMinute) / 1000);
+   let days = t/oneDay
+   days = Math.floor(days)
+   let hours = Math.floor((t % oneDay) / oneHour);
+   let minutes = Math.floor((t % oneHour) / oneMinute);
+   let seconds = Math.floor((t % oneMinute) / 1000);
 
 // set values array
-const values = [days,hours,minutes,seconds];
+  const values = [days,hours,minutes,seconds];
 
-function format(item) {
-  if (item < 10) {
-    return (item = `0${item}`);
-  }
-    return item;
+    function format(item) {
+      if (item < 10) {
+          return (item = `0${item}`);
+      }
+          return item;
+    }
+
+    items.forEach(function(items,index) {
+        items.innerHTML = format(values[index]);
+    });
+    if (t< 0) {
+        clearInterval(countdown);
+        deadline.innerHTML = `<h4 class=expired>sorry, this giveaway has expired</h4>`
+    }
 }
-
-items.forEach(function(items,index) {
-    items.innerHTML = format(values[index]);
-});
-if (t< 0) {
-    clearInterval(countdown);
-    deadline.innerHTML = `<h4 class=expired>sorry, this giveaway has expired</h4>`
-}}
 
 // countdown
 let countdown = setInterval(getRemainingTime, 1000);
